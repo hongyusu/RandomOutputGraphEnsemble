@@ -1,0 +1,20 @@
+
+1. This file
+ Readme
+
+2. Run base learner (MMCRF) on 'one dataset' with 'one output graph' 
+ auto_run_baselearner.py
+ run_baselearner.m
+
+3. Run MAM ensemble   
+ auto_run_MAMlearner.py
+ run_MAMlearner.m
+ mu_complete_zero.m
+
+4.
+ auto_run_MAV_AMMlearner.py
+ run_MAV_AMMlearner.m
+
+5. Run parameter selection with base learner
+ auto_run_parameter_selection.py
+ run_parameter_selection.m
