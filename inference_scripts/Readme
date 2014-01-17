@@ -1,9 +1,13 @@
 1. This file
  Readme
 
-2. Run base learner (MMCRF) on 'one dataset' with 'one output graph' 
- auto_run_baselearner.py
- run_baselearner.m
+2. Run base learner (MMCRF) on 'one dataset' with 'one output graph'.
+    example run 'run_baselearner('fpuni','tree')' will run base learner on 'fpuni' dataset with 'tree' as random output grap structure.
+    files included: 
+        script to run baselearner parallely: auto_run_baselearner.py
+        matlab code to run one base leaner: run_baselearner.m
+        matlab code of base learner with MMCRF: baselearner.m
+
 
 3. Run MAM ensemble   
  auto_run_MAMlearner.py
