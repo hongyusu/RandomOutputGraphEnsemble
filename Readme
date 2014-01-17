@@ -1,6 +1,5 @@
 
-
-The codes are devote to trainning a multilabel classifier with random output graph ensemble.
+The codes are designed for trainning a multilabel classifier with random output graph ensemble.
 
 Package is located in Github, and can be clone with
     HTTP: https://github.com/hongyusu/RandomOutputGraphEnsemble.git
