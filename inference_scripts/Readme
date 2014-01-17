@@ -1,4 +1,3 @@
-
 1. This file
  Readme
 
@@ -11,7 +10,7 @@
  run_MAMlearner.m
  mu_complete_zero.m
 
-4.
+4. Run Majority Voting ensemble and Average maximum marginal ensemble
  auto_run_MAV_AMMlearner.py
  run_MAV_AMMlearner.m
 
