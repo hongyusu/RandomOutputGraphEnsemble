@@ -23,8 +23,8 @@ def singleBaselearner(filename,graph_type,t,node):
   pass
 
 def run():
-  cluster = get_free_nodes()[0]
-  #cluster = ['dave']
+  #cluster = get_free_nodes()[0]
+  cluster = ['dave']
   jobs=[]
   n=0
   is_main_run = 1
