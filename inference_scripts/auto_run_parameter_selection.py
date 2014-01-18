@@ -9,9 +9,7 @@ import time
 import logging
 logging.basicConfig(format='%(asctime)s %(filename)s %(funcName)s %(levelname)s:%(message)s', level=logging.INFO)
 
-#current_DIR = '/home/group/urenzyme/workspace/sop/mlj_ensemblemmcrf/tree_inference_scripts/'
-current_DIR = '~/RandomOutputGraphEnsemble/'
-
+current_DIR = os.getcwd() 
 
 
 def singleParameterSelection(filename,graph_type,node):
