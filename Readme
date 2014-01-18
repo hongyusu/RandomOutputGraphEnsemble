@@ -1,7 +1,7 @@
 
 The codes are designed for trainning a multilabel classifier with random output graph ensemble.
 
-Package is located in Github, and can be clone with
+Package is located in Github, and can be cloned via
     HTTP: https://github.com/hongyusu/RandomOutputGraphEnsemble.git
     SSH: git@github.com:hongyusu/RandomOutputGraphEnsemble.git
     SVN: https://github.com/hongyusu/RandomOutputGraphEnsemble
