@@ -9,6 +9,9 @@ import time
 import logging
 logging.basicConfig(format='%(asctime)s %(filename)s %(funcName)s %(levelname)s:%(message)s', level=logging.INFO)
 
+#current_DIR = '/home/group/urenzyme/workspace/sop/mlj_ensemblemmcrf/tree_inference_scripts/'
+current_DIR = '~/RandomOutputGraphEnsemble/'
+
 
 
 def singleParameterSelection(filename,graph_type,node):
@@ -17,7 +20,7 @@ def singleParameterSelection(filename,graph_type,node):
     logging.info('\t--< (node)%s,(f)%s,(type)%s' %( node,filename,graph_type))
   except:
     logging.info('\t--> (node)%s,(f)%s,(type)%s' %( node,filename,graph_type))
-    os.system(""" ssh -o StrictHostKeyChecking=no %s 'cd /home/group/urenzyme/workspace/sop/mlj_ensemblemmcrf/tree_inference_scripts/; nohup matlab -nodisplay -nosplash -nodesktop -r "run_parameter_selection '%s' '%s' '1'  '0' " > /var/tmp/tmp_%s_%s_baselearner' """ % (node,filename,graph_type,filename,graph_type) )
+    os.system(""" ssh -o StrictHostKeyChecking=no %s 'cd %s; nohup matlab -nodisplay -nosplash -nodesktop -r "run_parameter_selection '%s' '%s' '0' " > /var/tmp/tmp_%s_%s_baselearner' """ % (node,current_DIR,filename,graph_type,filename,graph_type) )
     logging.info('\t--| (node)%s,(f)%s,(type)%s' %( node,filename,graph_type))
     time.sleep(5)
   pass

@@ -3,7 +3,7 @@
 %
 % running parameter selection for dataset 'filename' with 'graph_type' as
 % output graph structure
-function run_parameter_selection(filename,graph_type,t,isTest)
+function run_parameter_selection(filename,graph_type,isTest)
 
     %% tackle input parameters
     if nargin <1
@@ -14,9 +14,6 @@ function run_parameter_selection(filename,graph_type,t,isTest)
         graph_type = 'tree';
     end
     if nargin < 3
-        t = '1';
-    end
-    if nargin < 4
         isTest = '1';
     end
     % set random number seed
@@ -24,7 +21,6 @@ function run_parameter_selection(filename,graph_type,t,isTest)
     % suffix for write result files
     suffix=sprintf('%s_%s_baselearner', filename,graph_type);
     %
-    t=eval(t);
     isTest = eval(isTest);
     % get search path
     addpath('../shared_scripts/');  
