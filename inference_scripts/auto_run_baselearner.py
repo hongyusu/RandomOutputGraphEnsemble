@@ -41,8 +41,8 @@ def run():
         p=multiprocessing.Process(target=singleBaselearner, args=(filename,graph_type,para_t,node,))
         jobs.append(p)
         p.start()
-        time.sleep(1*is_main_run)
-      time.sleep(300*is_main_run)
+        time.sleep(2*is_main_run)
+      time.sleep(600*is_main_run)
 
   for job in jobs:
     job.join()
