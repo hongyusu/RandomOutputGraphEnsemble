@@ -83,6 +83,7 @@ function run_parameter_selection(filename,graph_type,isTest)
         X=X(1:100,:);
         Y=Y(1:100,1:10);
         K=K(1:100,1:100);
+        Ind=Ind(1:100);
     end
 
     %% running base learning for parameter selection

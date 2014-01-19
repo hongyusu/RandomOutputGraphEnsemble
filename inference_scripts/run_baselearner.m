@@ -88,6 +88,7 @@ function run_baselearner(filename,graph_type,t,isTest)
         X=X(1:100,:);
         Y=Y(1:100,:);
         K=K(1:100,1:100);
+        Ind=Ind(1:100);
     end
 
 
