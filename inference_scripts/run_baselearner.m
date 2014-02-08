@@ -100,14 +100,16 @@ function run_baselearner(filename,graph_type,t,isTest)
         mmcrf_c=selected_parameters(1);
         mmcrf_g=selected_parameters(2);
         mmcrf_i=selected_parameters(3);
+        mmcrf_ssc=selected_parameters(4);
     catch err
         disp(err)
         mmcrf_c = 1;
         mmcrf_g = 0.9;
         mmcrf_i = 3;
+        mmcrf_ssc = 3;
     end
     % display something
-    disp([mmcrf_c,mmcrf_g,mmcrf_i])
+    disp([mmcrf_c,mmcrf_g,mmcrf_i,mmcrf_ssc])
     
     %% generate random graph
     rand('twister', 0);
@@ -150,6 +152,7 @@ function run_baselearner(filename,graph_type,t,isTest)
         paramsIn.tolerance      = 1E-10;    % numbers smaller than this are treated as zero
         paramsIn.profile_tm_interval = 10;  % how often to test during learning
         paramsIn.maxiter        = mmcrf_i;        % maximum number of iterations in the outer loop
+        paramsIn.ssc            = mmcrf_ssc;      % step size constant
         paramsIn.verbosity      = 1;
         paramsIn.debugging      = 3;
         if isTest

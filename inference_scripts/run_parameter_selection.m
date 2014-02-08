@@ -92,7 +92,7 @@ function run_parameter_selection(filename,graph_type,isTest)
     %
     mmcrf_cs=[50,10,5,1,0.5,0.1,0.01];
     mmcrf_gs=[0.9,0.8,0.7,0.6];
-    mmcrf_is=[3,5,10,15,20];
+    mmcrf_is=[3,5,10,15,20,25,30];
     Isel = randsample(1:size(K,2),ceil(size(K,2)*.5));
     IselTrain=Isel(1:ceil(numel(Isel)/5*4));
     IselTest=Isel((ceil(numel(Isel)/5*4+1)):numel(Isel));

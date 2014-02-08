@@ -115,7 +115,6 @@ function [rtn,ts_err] = baselearner(paramsIn,dataIn,muIn)
         
         opt_round = opt_round + 1;
         progress_made = 0; 
-        
         print_message('Conditional gradient optimization...',3)
         for x = 1:m
             % obtain initial gradient for index-x
@@ -144,6 +143,7 @@ function [rtn,ts_err] = baselearner(paramsIn,dataIn,muIn)
             prev_Kxx_mu_x=Kxx_mu_x;
             prev_Rmu=Rmu;
             prev_Smu=Smu;
+            prev_round=opt_round;
         end
         
     end     % end while
@@ -154,6 +154,7 @@ function [rtn,ts_err] = baselearner(paramsIn,dataIn,muIn)
     Rmu=prev_Rmu;
     Smu=prev_Smu;
     Kxx_mu_x=prev_Kxx_mu_x;
+    opt_round=prev_round;
     
     % after achieve current optimal solution, continue searching for the
     % $mu$ that minimize the training error in the next 2 iteration
@@ -267,6 +268,7 @@ function [mu_x,Kxx_mu_x,obj,iter] = optimize_x(x,obj,mu_x,Kmu_x,Kxx_mu_x,loss_x,
     global IndEdgeVal;
     global params;
     global Y_tr;
+    global opt_round;
     iter = 0;
     while iter < maxiter
         % calculate gradient for current example
@@ -314,7 +316,8 @@ function [mu_x,Kxx_mu_x,obj,iter] = optimize_x(x,obj,mu_x,Kmu_x,Kxx_mu_x,loss_x,
         Kd_x = Kmu_1 - Kmu_x;
         l = gradient'*d_x;
         q = d_x'*Kd_x;
-        alpha = min(l/q,1);
+        %alpha = min(l/q,1);
+        alpha = params.ssc/(params.ssc+opt_round);
         
         delta_obj = gradient'*d_x*alpha - alpha^2/2*d_x'*Kd_x;
         if or(delta_obj <= 0,alpha <= 0)
