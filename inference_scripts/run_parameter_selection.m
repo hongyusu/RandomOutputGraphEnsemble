@@ -182,6 +182,7 @@ function run_parameter_selection(filename,graph_type,isTest)
 
     selected_parameters=[mmcrf_c,mmcrf_g,mmcrf_i,mmcrf_ssc];
     disp(selected_parameters)
+    selRes = selRes/size(Ypred(IselTest,:),1)/size(Ypred(IselTest,:),2);
 
     save(sprintf('../outputs/%s_parameters', paramsIn.filestem),'selected_parameters','selRes');
 

@@ -79,10 +79,12 @@ function run_MAV_AMMlearner(filename,graph_type,t)
     mmcrf_c=selected_parameters(1);
     mmcrf_g=selected_parameters(2);
     mmcrf_i=selected_parameters(3);
+    mmcrf_ssc=selected_parameters(4);
     selRes
     mmcrf_c
     mmcrf_g
     mmcrf_i
+    mmcrf_ssc
     
     %%
     Nrep=200;
