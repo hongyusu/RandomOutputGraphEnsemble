@@ -102,6 +102,7 @@ function [rtn,ts_err] = baselearner(paramsIn,dataIn,muIn)
     prev_Kxx_mu_x=Kxx_mu_x;
     prev_Rmu=Rmu;
     prev_Smu=Smu;
+    prev_round=1;
     
     % allowed number of flips
     nflip=5;

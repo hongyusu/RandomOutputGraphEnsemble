@@ -93,12 +93,14 @@ function run_parameter_selection(filename,graph_type,isTest)
     mmcrf_cs=[50,10,5,1,0.5,0.1,0.01];
     mmcrf_gs=[0.9,0.8,0.7,0.6];
     mmcrf_is=[3,5,10,15,20,25,30];
+    mmcrf_sscs=[2,3,4,5];
     Isel = randsample(1:size(K,2),ceil(size(K,2)*.5));
     IselTrain=Isel(1:ceil(numel(Isel)/5*4));
     IselTest=Isel((ceil(numel(Isel)/5*4+1)):numel(Isel));
-    selRes=zeros(numel(mmcrf_gs)*numel(mmcrf_is),numel(mmcrf_cs));
-    for l=1:numel(mmcrf_is)
+    selRes=zeros(numel(mmcrf_sscs)*numel(mmcrf_gs)*numel(mmcrf_is),numel(mmcrf_cs));
+    for p=1:numel(mmcrf_sscs)
     for i=1:numel(mmcrf_gs)
+    for l=1:numel(mmcrf_is)
         for j=1:numel(mmcrf_cs)
             % set input parameters
             paramsIn.mlloss         = 0;        % assign loss to microlabels(0) edges(1)
@@ -110,6 +112,7 @@ function run_parameter_selection(filename,graph_type,isTest)
             paramsIn.tolerance      = 1E-10;    % numbers smaller than this are treated as zero
             paramsIn.profile_tm_interval = 10;  % how often to test during learning
             paramsIn.maxiter        = mmcrf_is(l);        % maximum number of iterations in the outer loop
+            paramsIn.ssc            = mmcrf_sscs(p);
             paramsIn.verbosity      = 1;
             paramsIn.debugging      = 3;
             if isTest
@@ -152,22 +155,32 @@ function run_parameter_selection(filename,graph_type,isTest)
             % collecting results
             load(sprintf('/var/tmp/Ypred_%s.mat', paramsIn.filestem));
             Ypred(Itest,:)=Ypred_ts;
-            selRes((l-1)*numel(mmcrf_gs)+i,j) = sum(sum((Ypred(IselTest,:)>=0)==Y(IselTest,:)));
-            disp(selRes)
+            selRes((p-1)*numel(mmcrf_gs)*numel(mmcrf_is)+(i-1)*numel(mmcrf_is)+l,...
+                j) = sum(sum((Ypred(IselTest,:)>=0)==Y(IselTest,:)));
+            disp(selRes);
         end
+    end
     end
     end
     
     %% extract best parameters from the results and save to file
-    is = find(max(selRes,[],1)==max(max(selRes,[],1)));
-    mmcrf_c=mmcrf_cs(is(1));
-    is = rem(find(max(selRes,[],2)==max(max(selRes,[],2))),numel(mmcrf_gs));
-    is(is==0)=numel(mmcrf_gs);
-    mmcrf_g=mmcrf_gs(is(1));
-    is = ceil(find(max(selRes,[],2)==max(max(selRes,[],2)))/numel(mmcrf_gs)-0.01);
-    mmcrf_i=mmcrf_is(is(1));
+    mmcrf_c_i = find(max(selRes,[],1)==max(max(selRes,[],1)));
+    mmcrf_c_i=mmcrf_c_i(1);
+    row_index=find(max(selRes,[],2)==max(max(selRes,[],2)))-0.1;
+    mmcrf_ssc_i = ceil( row_index / numel(mmcrf_gs) / numel(mmcrf_is) );
+    mmcrf_g_i = ceil( row_index / numel(mmcrf_is) );
+    mmcrf_g_i = ceil(rem((mmcrf_g_i-0.1) , numel(mmcrf_gs)));
+    mmcrf_i_i = ceil(rem((row_index-0.1) , numel(mmcrf_is)))
+    [mmcrf_ssc_i,mmcrf_g_i,mmcrf_i_i,mmcrf_c_i]
+    
+    mmcrf_c = mmcrf_cs(mmcrf_c_i);
+    mmcrf_i = mmcrf_is(mmcrf_i_i);
+    mmcrf_g = mmcrf_gs(mmcrf_g_i);
+    mmcrf_ssc = mmcrf_sscs(mmcrf_ssc_i);
+    [mmcrf_ssc,mmcrf_g,mmcrf_i,mmcrf_c]
+    
 
-    selected_parameters=[mmcrf_c,mmcrf_g,mmcrf_i];
+    selected_parameters=[mmcrf_c,mmcrf_g,mmcrf_i,mmcrf_ssc];
     disp(selected_parameters)
 
     save(sprintf('../outputs/%s_parameters', paramsIn.filestem),'selected_parameters','selRes');
